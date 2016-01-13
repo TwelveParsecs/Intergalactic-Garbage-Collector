@@ -1,0 +1,1234 @@
+<!------------------------------------------------------
+********************************************************
+********************************************************
+**                                                   
+**  INTERGALACTIC GARBAGE COLLECTOR              
+**                                                    
+**  by Dave Brennan                                  
+**  December 10, 2014                             
+**                                                    
+********************************************************
+********************************************************
+------------------------------------------------------->
+
+
+
+
+<html>
+	<head>
+		<title>Intergalactic Garbage Collector</title>
+        <link rel="stylesheet" type="text/css" href="fonts/fonts.css">
+		<style>
+            
+            container { 
+                position: absolute; 
+                width: 100%;
+                height: 100%;
+                background: #000;
+                z-index:1005;
+            }
+            
+            #loading{
+                
+                 font-family:exobold;
+                font-size:50px;
+               text-align: center;
+                color:#2b7dc0;
+                height: 200px;
+                width: 200px;       
+                margin: auto;
+                position: relative;
+                top: 45%;
+                transform: translateY(-50%);
+            }
+
+            
+            
+            
+            html{
+               overflow-x: hidden; 
+               overflow-y: auto;   
+                
+            }
+            
+            body {   
+                overflow-x: hidden; 
+                overflow-y: auto;
+                width: 100%; height: 100%; margin: 0; padding 0; 
+            }
+            
+            
+            /*--------Menu------------*/
+            
+            #menuBack{
+                background-color: rgba(0, 0, 0, 0.8);
+                height:100%;
+                width:100%;
+                display:block;
+                position:absolute;
+                top:0px;
+                left:0xp;
+                z-index:1000;
+                
+            }
+            
+            .menuItems{
+                font-family:exobold;
+                font-size:64px;
+                left:50%;
+                top:17px;
+                position:relative;
+                margin-left:-435px;
+
+            }
+            
+            .item{
+                padding-right:5px;
+               
+                
+            }
+            
+           a:link{
+              color:#777;
+                text-decoration: none;
+                
+            }
+            
+            a:visited {
+                color:#777;
+            }
+
+        
+            a:hover {
+               color:#fff;
+            }
+
+         
+            a:active {
+               color:#777;
+}
+            
+            #mainMenu{
+               position:relative;
+                top:10%;
+                
+            }
+    
+            #logo{
+               opacity:0.8; 
+               position:relative;
+               left:50%;
+                margin-left:-450px;
+                top:20px;
+                
+            }
+            
+            
+            /*--------Game Over------------*/
+            #gameOver{
+                
+                font-family:exobold;
+                font-size:100px;
+               text-align: center;
+                color:#ce2d21;
+                position:absolute;
+                display:none;
+                height:100%;
+                width:100%;
+              padding-top:17%;    
+              z-index:1000;          
+            }
+
+            #gameOverMessage{
+                 color:#fff;      
+                font-size:50px;
+                
+                
+            }
+            
+             #gameOver a:link{
+                 color:#fff;                      
+            }
+            
+            #playAgain{
+                  display:inline-block;
+                position:relative;
+                /*background-color: rgba(0, 0, 0, 0.8); */  
+                font-size:40px;
+                   padding:5px;
+                 top:-30px;
+                 right:5px;
+                
+            }
+             #backMenu{
+                 position:relative;
+                 top:-30px;
+                 right:20px;
+                display:inline-block;  
+                /*background-color: rgba(0, 0, 0, 0.8); */  
+                font-size:40px;
+                 padding:5px;  
+            }
+            
+            /*--------Intructions------------*/
+            #instructions{
+                display:none;
+                font-family:exobold;
+                font-size:50px;
+               text-align: center;
+                color:#2b7dc0;
+                position:absolute;
+           display:none;
+              padding-top:3%;
+                width:900px;
+                margin-left:-450px;
+                left:50%;
+                
+                
+            }
+            
+            .text{
+                
+               font-family:exobold; 
+               color:#777; 
+                
+            }
+            
+            .back{
+    
+                position:relative; 
+                display:block;
+                font-size: 32px;
+                margin-top:100px;
+              left:120px;
+                width:100px;
+                
+                
+                
+            }
+            
+            a.back :link{
+                color:#2b7dc0;
+            }
+            
+            
+            a.back:visited{
+                color:#2b7dc0;
+            }
+            
+            a.back:hover{
+                color:#fff;
+            }
+            
+            a.back:active{
+              color:#2b7dc0;
+            }
+            
+            /*--------Credits------------*/
+            
+            #credits{
+                   display:none;
+                font-family:exobold;
+                font-size:50px;
+               text-align: center;
+                color:#2b7dc0;
+                position:absolute;
+              padding-top:3%;
+                width:900px;
+                margin-left:-450px;
+                left:50%;
+                
+                
+            }
+            /*--------Pause------------*/
+            #pause{
+                  display:none;
+                font-family:exobold;
+                font-size:50px;
+                 position:absolute;
+                 top:0px;
+                 right:0px;
+                 background-color: rgba(0, 0, 0, 0.8);  
+                font-size:40px;
+                 padding:5px;
+               
+            }
+            #pause h1 {
+               
+                font-size:70px;
+               text-align: center;
+                color:#2b7dc0;
+                position:relative;
+              padding-top:10%;
+                width:900px;
+                margin-left:-450px;
+                left:50%;
+                
+            }
+            
+        .pauseItem {
+               
+          display:block;
+            text-align: center;
+            margin-bottom:10px;
+            }
+            
+            
+            
+         
+        </style>
+	</head>
+	<body > 
+        <container id="preloader">
+            <div id="loading">
+                <p>LOADING</p>
+                <img src="textures/loading.gif">
+            </div>
+        </container>        
+        
+       <div id="menuBack">
+           <div id = "mainMenu">
+               <img src="textures/Logo.png" id="logo">
+               <div class="menuItems">
+                   <a href="#" class="item" onclick="playGame()">PLAY</a>
+                   <a href="#"class="item" onclick="instructions()">INSTRUCTIONS</a>
+                   <a href="#" class="item"onclick="credits()">CREDITS</a>
+                </div>
+            </div>
+           <div id="instructions">
+                <h1>Instructions</h1>
+               <div class="text">
+                   <div style="font-size:28px; text-align:left; line-height:36px; margin-left:210px;margin-top:-20px;">
+                    The year is 2056. Earth's landfills are <br>
+                    overflowing and must now send its <br>
+                    garbage to the moon. You are the <br>
+                    operator of a garbage hauler tasked <br>
+                    with collecting garbage pods as they <br>
+                    arrive from Earth. <br><br><br>
+                   </div>
+                       
+                <div style="font-size:38px; margin-top:-20px;">
+                   Move with the arrow keys.<br><br>
+                   Avoid the meteorites and <br>
+                   collect all the garbage pods<br> 
+                   before the time runs out.</span>
+                </div>
+               </div>
+                <a href="#" onclick="back()" class="back">&larr;Back</a>
+               
+           </div>
+           <div id="credits">
+                <h1>Credits</h1>
+                <div class="text" style="font-size:32px;">
+                   Coded by Dave Brennan<br><br>
+                   Game Music "Power7" by Flower Power DJ <br><br>
+                   Menu Music "Sci Fi Theme 1" by Ckotty <br><br>
+                   Skybox by Stijn "Ingar" Buys
+                </div>
+                <a href="#" onclick="back()" class="back">&larr;Back</a>
+           </div>
+        </div>
+        
+        <div id="pause">
+            <h1>Paused</h1>
+             <a href="#" class="pauseItem" onclick="pause=false;">Return to game</a>
+            <a href="#" class="pauseItem" onclick="restartAll()">Main Menu</a>
+        </div>
+        
+        <div id="gameOver" >
+            Game Over
+            <div id= "gameOverMessage">
+                 You completed 2 waves.                     
+            </div>
+             <a href="?play=true" id= "playAgain" onclick="restartAll()">
+                 Play Again                  
+            </a>
+            <a href="#" id= "backMenu" onclick="restartAll()">
+                Main Menu                
+            </a>
+        </div>
+        
+        <!---------------------------- Load Sound Effects ----------------------------------------->
+        <audio loop id="bgMusic" src="audio/bg_music.mp3" preload="auto" style="display:none"></audio>
+        <audio loop id="menuMusic" src="audio/menu_music.mp3" preload="auto" style="display:none"></audio>
+        <audio id="collectSFX" src="audio/collect.mp3" preload="auto" style="display:none"></audio>
+        <audio id="alertSFX" src="audio/alert.mp3" preload="auto" style="display:none"></audio>
+        <audio id="asteroidSFX" src="audio/asteroid.mp3" preload="auto" style="display:none"></audio>
+         <audio id="crashSFX1" src="audio/crash.mp3" preload="auto" style="display:none"></audio>
+         <audio id="crashSFX2" src="audio/crash.mp3" preload="auto" style="display:none"></audio>
+         <audio id="crashSFX3" src="audio/crash.mp3" preload="auto" style="display:none"></audio>
+         <audio id="crashSFX4" src="audio/crash.mp3" preload="auto" style="display:none"></audio>
+         <audio id="crashSFX5" src="audio/crash.mp3" preload="auto" style="display:none"></audio>
+        
+        
+        
+		<script src="js/three.min.js"></script>
+        <script src="js/Detector.js"></script>
+        
+        <!--html canvas version of screen GUI -->
+         <script src='js/screen.js'></script>
+            
+        
+		<script>
+            var speed = 1.5;//move speed
+            var scene, camera, renderer, obj, raycaster, cockpit, asteroid;
+            var vy = 0, vx = 0, direction = "", forward=""; gravity = 0.3;
+            var jumping = false, inAir = true;
+            var time = 60; //timer
+            var flicker = 0; //"garbage incoming" flicker timer
+            var startTimer = false; //timer counts down when true
+            var score = 0;//number of garbage capsules collected
+            var wave = 1;//round number
+            var waveIncoming = false;//when true, screen flashes "Garbage Incoming!"
+            var screen;
+            var viewScreen,leftStick,rightStick; //objects to be manipulated
+            var leftRot,rightRot //starting rotation of left and right sticks
+            var capsules = [];
+            var asteroids = [];
+            var asteroidCount = 0;
+            var warningLights = [];
+            var pieces = [], directions = [];
+            var particles,particleSystem;
+            var screenImage;
+            var rotation = 0; //menu camera
+            var play = false; //if game should start
+            var freeze=false; //if game should stop
+            var restart = false; //if game is restarting
+            var pause = false; //if game is paused
+            var loaded,itemsToLoad;//preloader
+            
+          
+
+/*******************************************************************************************
+                                        INIT START
+********************************************************************************************/            
+            function init(){
+                //set preloader 
+                loaded=0;
+                itemsToLoad = 2;
+                
+                //add detector to see if WebGL is supported
+                if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+                //set up a scene
+                scene = new THREE.Scene();
+                //add a camera
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight,1, 50000);
+                menuCamera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight,10, 50000);
+
+                //render the scene - start renderer and set it's size
+                renderer = new THREE.WebGLRenderer({antialias:true});
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.shadowMapEnabled = true;
+                renderer.shadowMapSoft = true;
+                
+                document.getElementById("pause").style.width=window.innerWidth;
+                 document.getElementById("pause").style.height=window.innerHeight-10;
+                //add to webpage
+                document.body.appendChild(renderer.domElement);
+
+               //skybox
+                var materialArray = [];
+                materialArray.push(new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture( 'textures/sky22_ft.jpg' ), side: THREE.BackSide }));
+                materialArray.push(new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture( 'textures/sky22_bk.jpg' ), side: THREE.BackSide}));
+                materialArray.push(new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture( 'textures/sky22_up.jpg' ), side: THREE.BackSide}));
+                materialArray.push(new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture( 'textures/sky22_dn.jpg' ), side: THREE.BackSide}));
+                materialArray.push(new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture( 'textures/sky22_rt.jpg' ), side: THREE.BackSide}));
+                materialArray.push(new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture( 'textures/sky22_lf.jpg' ), side: THREE.BackSide}));
+                var cubeMat = new THREE.MeshFaceMaterial(materialArray);
+                geometry = new THREE.BoxGeometry(50000,50000,50000);
+                cube = new THREE.Mesh( geometry, cubeMat );
+                scene.add(cube);
+                preloader();
+
+                
+                //set main timer
+                setInterval(function () { if (time >0 && play==true && pause == false)time-=1; }, 1000);
+                
+                //set flicker timer
+                //This is used to make the "garbage incoming!" message flash 
+                 setInterval(function () {if (pause==false) flicker+=1; } , 500);
+                
+                //position camera
+                camera.position.set (-500, 40, 0);
+                camera.rotation.y =-Math.PI / 2;
+				
+                //create raycaster
+                raycaster = new THREE.Raycaster();
+                
+                
+               
+                
+//////////////////////////////////  LOAD SCENE  /////////////////////////////////////////////////////////////
+                
+                    var loader = new THREE.ObjectLoader();
+                    loader.load( 'js/moon.js', function ( object ) {
+                    object.traverse( function( node ) { 
+                        if ( node instanceof THREE.Mesh ) { 
+                            node.castShadow = true; 
+                            node.receiveShadow = true;
+                        } 
+                        preloader();
+                    });
+                    object.matrixAutoUpdate = true;
+                    scene.add( object );
+                   scene.add(camera);
+                    
+                    //moon
+                    moon = scene.getObjectByName( "moon", true );
+                
+                    //add cockpit and make camera parent
+                    cockpit = scene.getObjectByName("cockpit",true);
+                    camera.add(cockpit);
+                    cockpit.rotation.set(0,Math.PI/2,0);
+                    cockpit.position.set(0,-25,-19);
+                    cockpit.updateMatrix();
+                    
+                    //add subtle light in cockpit 
+                    cockpitLight = scene.getObjectByName("cockpitLight",true);
+                    cockpit.add(cockpitLight);
+                    cockpit.traverse( function( node ) { 
+                        if ( node instanceof THREE.Mesh ) { 
+                            node.visible=false;
+                            node.castShadow = true; 
+                            node.receiveShadow = false;
+                        } 
+                    });
+                    
+                    
+                    //sticks
+                    leftStick = scene.getObjectByName("Left_Stick",true);
+                    rightStick = scene.getObjectByName("Right_Stick",true);
+                    leftRot = leftStick.rotation.z;
+                    rightRot = rightStick.rotation.z;
+                    
+                    //Gauge textures
+                    gauge1=scene.getObjectByName("Gauge_1_Face",true);
+                    gauge2=scene.getObjectByName("Gauge_2_Face",true);
+                    gauge3=scene.getObjectByName("Gauge_3_Face",true);
+                    
+                    gaugeTexture = THREE.ImageUtils.loadTexture("textures/Gauge.png");
+                    gauge1.children[0].material= new THREE.MeshLambertMaterial({ map: gaugeTexture, emissive: 0x656565});
+                    gauge2.children[0].material= new THREE.MeshLambertMaterial({ map: gaugeTexture , emissive: 0x656565 });
+                    gaugeTexture = THREE.ImageUtils.loadTexture("textures/Gauge2.png");
+                    gauge3.children[0].material= new THREE.MeshLambertMaterial({ map: gaugeTexture, emissive: 0x656565});
+                    
+                    
+                    //Landing Pad
+                    pad=scene.getObjectByName("Landing_PadTop",true);
+                    padTexture = THREE.ImageUtils.loadTexture("textures/LandingPad-01.png",new THREE.CubeReflectionMapping());
+                    pad.children[0].material= new THREE.MeshPhongMaterial({ map:padTexture});
+                  
+                    
+                    //Sun
+                    sun=scene.getObjectByName("Sun",true);
+                    sun.castShadow= false;
+                    sun.recieveShadow=false;
+                    
+                    //Set sunlight properties    
+                    light=scene.getObjectByName("sunlight",true);
+                    light.intensity = 1;
+                    light.castShadow = true;
+                    light.shadowCameraNear = 5;
+                    light.shadowCameraFar = 3000;
+                    light.shadowCameraFov = 90;
+                    light.shadowBias = 0.0005;
+                    light.shadowDarkness = .65;
+                    light.shadowMapType = THREE.BasicShadowMap;
+                    
+                    
+                    
+                    //View Screen
+                    viewScreen=scene.getObjectByName( "Screen", true );
+                    screenImage = new Image();
+                    screenImage.src = "textures/screen.png"; 
+                        
+                   
+                        
+                    //Warning Lights
+                  var spotLight = new THREE.SpotLight( 0xff0000);
+                        spotLight.position.set( 0, 500, 0);
+                        spotLight.distance=3000;
+                        spotLight.intensity=0;
+                        spotLight.angle=0.2;
+                   
+                  
+                    for (i=0; i < 20; i ++){  
+                        warningLights.push(spotLight.clone());
+                    scene.add(warningLights[i]);
+                        
+                    }
+                 //Asteroids
+                    asteroid = scene.getObjectByName("Rock.7",true);    
+                    
+
+                
+/////////////////////////////   CAPSULE PARTICLES   ////////////////////////////////////////
+                        
+                
+                //create particles
+                var particleCount = 200;
+                  var  pMaterial = new THREE.ParticleBasicMaterial({
+                      color: 0x2b7dc0,
+                      size: 1
+                    });
+                 particles = new THREE.Geometry();
+
+                 //create particle with random position. Y value is weighted to lower numbers to make a tapered shape        
+                for (var p = 0; p < particleCount; p++) {
+               
+                    var weight = Math.pow(Math.random(), 4);
+                    var pX = Math.random() * 10- 5;
+                    var   pY = Math.floor(weight * (200 - 25 + 1)) + 25;
+                    var   pZ = Math.random() * 10 - 5;
+                      particle = new THREE.Vertex(
+                        new THREE.Vector3(pX, pY, pZ)
+                      );
+
+                  // add it to the geometry
+                  particles.vertices.push(particle);
+                }
+
+                // create the particle system
+                particleSystem = new THREE.ParticleSystem(
+                    particles,
+                    pMaterial);
+                particleSystem.name="particleSystem";    
+                    
+                        
+                        
+                        
+                        
+                    
+                    
+////////////////////////////////    CAPSULES    /////////////////////////////////////////////////     
+          
+                    //Garbage Capsules
+                    
+                     cap=scene.getObjectByName("Capsule",true);
+                       cap.traverse( function( node ) { 
+                        if ( node instanceof THREE.Mesh ) { 
+                            node.castShadow = true; 
+                            node.receiveShadow = false;
+                        } 
+                    });  
+                //remove original
+                   cap.position.set(0,-100,0);
+
+                } );
+            }
+
+
+/*******************************************************************************************
+                                        INIT END
+********************************************************************************************/    
+            
+            
+            
+
+//////////////////////////////////  ANIMATE    /////////////////////////////////////////////////               
+            function animate() {
+                    requestAnimationFrame( animate );
+                    render();		
+                }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+/*******************************************************************************************
+                                        RENDER START
+********************************************************************************************/
+            
+			function render() {
+                    
+                    //check if the game is being restarted
+                if(restart){
+                    playGame();
+                    restart = false;        
+                }
+                
+                
+                
+                
+////////////////////////////////    SCREEN     ////////////////////////////////////////////////////////////////
+                
+                
+                var canvas1 = document.createElement('canvas');
+                canvas1.height=150;
+                canvas1.width=350;
+                var context1 = canvas1.getContext('2d');
+                  
+                
+            if(waveIncoming){
+                //Wave Incoming Message 
+                context1.fillStyle = "#212121";
+                    context1.fillRect(0,0,canvas1.width,canvas1.height);
+                  context1.fillStyle = "#ce2d21";
+                context1.font = "60px exobold";
+                if (flicker%2 == 0){  
+                  document.getElementById("alertSFX").play(); 
+                context1.fillText("GARBAGE", 40,65);
+                context1.fillText("INCOMING!", 30,130);}
+            }
+            else{
+                 //bar bg
+                    context1.fillStyle="rgb(20,20,20)";
+                    context1.fillRect(10,90,canvas1.width-20,50);
+                //garbage bar bg
+                    context1.fillStyle = "rgba(42,126,192,0.95)";
+                    context1.fillRect(50,90,(canvas1.width-50)/( 10 +(wave - 1) * 5)* score,50);
+   
+                //draw BG image using converted canvas commands
+              drawCanvas(context1);
+
+                    context1.font = "24px exobold";
+                context1.fillText("Wave", 190,55);
+                context1.font = "60px exobold";
+                  context1.fillText(wave, 260,65);
+               
+                if (startTimer){
+                    if (time > 9){
+                        context1.fillText(time, 50,65);
+                    }
+                    else{
+                       context1.fillStyle = "#ce2d21";
+                       context1.fillText(time, 50,65); 
+
+                    }
+                }
+                
+            }  
+                    // canvas contents will be used for a texture
+                    var texture1 = new THREE.Texture(canvas1) 
+                    texture1.needsUpdate = true;
+                
+                    var material1 = new THREE.MeshPhongMaterial( {map: texture1, side:THREE.DoubleSide ,emissive: 0x868686} );
+                    
+                    //check if screen object is loaded
+                    if (viewScreen != null){
+                       
+                        var box = new THREE.Box3().setFromObject( viewScreen );
+                       
+                      viewScreen.children[0].material=material1;
+                        //viewScreen.children[0].updateMatrix;
+                    }
+                
+                
+                
+                
+                
+                    
+///////////////////////////////////   CONTROLS    ////////////////////////////////////////////////////////////////
+                
+           
+                if (!freeze & !pause){
+                    if ( direction == "left" ){
+                       camera.rotation.y +=0.02;
+                        leftStick.rotation.z=2.7;
+
+                        rightStick.rotation.z=1.3;
+
+                    }
+                    if ( direction == "right" ){
+                        camera.rotation.y -= 0.02;
+                        leftStick.rotation.z=3.4;
+                        rightStick.rotation.z=2.0;
+
+                    }
+                    if ( forward == "up" ){
+                        
+                        camera.translateZ( -speed);
+                       if (camera.position.x < -700 || camera.position.x > 700 || camera.position.z < -700 || camera.position.z > 700){
+                          camera.translateZ( speed); 
+                       }
+                           
+                           
+                        if (direction == ""){
+                            leftStick.rotation.z=3.4; 
+                            rightStick.rotation.z=1.3;
+                        }
+                    }
+                     if ( forward == "down" ){
+                        if (direction == ""){
+                            leftStick.rotation.z=2.7;
+                            rightStick.rotation.z=2.0;
+                        }
+                        camera.translateZ( speed );
+                           if (camera.position.x < -700 || camera.position.x > 700 || camera.position.z < -700 || camera.position.z > 700){
+                          camera.translateZ( -speed); 
+                       }
+                    }
+                } 
+            if (leftStick != null && rightStick != null){    
+                if (forward == "" &&  direction == ""){
+                    leftStick.rotation.z=leftRot;
+                    rightStick.rotation.z=rightRot; 
+                }
+                
+            }
+                
+            
+/////////////////////////////////   MOVE CAPSULES   ////////////////////////////////////////////////////////////////
+                
+                     //move capsules down 
+                for (var i =0; i < capsules.length; i++){
+                    if (capsules[i].position.y >= 20 && pause == false){ 
+                        //move capsule
+                        capsules[i].position.y -=10;
+                        //if move takes capsule below the floor, move it back up
+                        if(capsules[i].position.y <=19){
+                            capsules[i].position.y =19;   
+                        }
+                        //rotate particles
+                        capsules[i].getObjectByName("particleSystem",true).rotation.y += Math.random()*5-2.5;
+                    }
+                   else if (pause == true){}
+                   else{
+                       //if particles still exist, remove particles
+                       var pS = capsules[i].getObjectByName("particleSystem",true);
+                       if (pS != null){
+                       capsules[i].remove(pS);
+                        
+                        //play crash sound
+                        var crash= [];
+                        
+                        //load crash sounds into array   
+                        crash.push(document.getElementById("crashSFX1"));
+                        crash.push(document.getElementById("crashSFX2"));
+                        crash.push(document.getElementById("crashSFX3"));
+                        crash.push(document.getElementById("crashSFX4"));
+                        crash.push(document.getElementById("crashSFX5"));
+                        
+                        //check if an instance of crash is free. If so, play it.
+                        for (var i = 0; i <5; i ++){
+                            if (!(!crash[i].paused && !crash[i].ended && 0 < crash[i].currentTime)) {
+                                crash[i].play();
+                                crash[i].volume=volume(camera.position,capsules[i].position);
+                                break;
+                                }
+                            } 
+                       }     
+                   }
+                }
+
+              
+            
+                //check intersects with capsules
+                for (var i = 0; i < capsules.length; i ++){
+                    if (checkIntersects(capsules[i].position.x,capsules[i].position.y,capsules[i].position.z,40)){
+                        scene.remove(capsules[i]);
+                        capsules.splice(i,1);
+                         score += 1;
+                        document.getElementById("collectSFX").play();
+                         
+                    }
+                    
+                    
+                }
+                
+                
+                
+/////////////////////////////////   MOVE ASTEROIDS  ////////////////////////////////////////////////////////////////
+                
+                     //move asteroids down 
+                for (var i =0; i <asteroids.length; i++){
+                    if (asteroids[i].position.y >= 30 && pause == false){ 
+                        //move asteroid
+                        if (i <= asteroidCount){
+                        asteroids[i].position.y -=20;
+                        }
+                        
+                    }
+                  
+                   else if (pause == true){}
+                   else{
+                          /*
+                           if (asteroids[i].position.y > -200){
+                               piece = asteroids[i].clone();
+                               piece.scale.set(0.3,0.3,0.3);
+                               for (i = 0; i < 3; i ++){
+                                   piece.rotation.y = (Math.random() * Math.PI * 2); 
+                                   piece.rotation.x = (Math.random() * Math.PI/2); 
+                                   piece.rotation.z = (Math.random() * Math.PI/2); 
+                                   pieces.push(piece)
+
+                               }
+                           }
+                           */
+                            
+                       //set asteroid under map and play sound
+                           warningLights[i].intensity=0;
+                            
+                           
+                            if (asteroids[i].position.y > -200){
+                                document.getElementById("asteroidSFX").play();
+                           }
+                       asteroids[i].position.y = -200;
+                       }
+
+
+                    warningLights[i].updateMatrix();
+                  
+                   }
+
+                /*
+                for (i = 0; i < pieces.length; i ++){          
+                    pieces[i].translateZ( 10); 
+                    pieces[i].rotation.x +=0.1;     
+                }
+                */
+//////////////////////////////////  CHECK INTERSECTS    ////////////////////////////////////////////////////////////////
+                
+                //check intersects with capsules
+                for (var i = 0; i < capsules.length; i ++){
+                    if (checkIntersects(capsules[i].position.x,capsules[i].position.z,40)){
+                        scene.remove(capsules[i]);
+                        capsules.splice(i,1);
+                         score += 1;
+                        document.getElementById("collectSFX").play();
+                         
+                    }
+                    
+                    
+                }
+                
+                //check intersects with asteroids
+                for (var i = 0; i < asteroids.length; i ++){
+                    if (checkIntersects(asteroids[i].position.x,asteroids[i].position.y,asteroids[i].position.z,160)){
+                        time=0;
+                        freeze = true;
+                   document.getElementById("gameOver").style.display="block";
+                    waveNum = wave -1; 
+                    if (waveNum != 1) document.getElementById("gameOverMessage").innerHTML = "An asteroid hit you. You completed " + waveNum + " waves. ";
+                    else document.getElementById("gameOverMessage").innerHTML = "You completed 1 wave.";
+                         
+                    }
+                    
+                    
+                }
+                
+                
+                
+
+                
+//////////////////////////////////  MAIN MENU   ////////////////////////////////////////////////////////////////  
+                
+                
+                    //play menu music
+                if (!play)document.getElementById("menuMusic").play();
+                else document.getElementById("menuMusic").pause();
+                
+                
+                //menu camera rotation
+                rotation += 0.005;
+                menuCamera.position.x = Math.sin(rotation) * 500;
+                menuCamera.position.y = 100;
+                menuCamera.position.z = Math.cos(rotation) * 500;
+                menuCamera.lookAt( scene.position ); 
+
+                
+                //end garbage incoming message if it has been playing for 3.5 seconds
+                if (flicker > 7 && waveIncoming == true){
+                    startWave(wave);
+                    
+                }
+                
+                //Next Wave
+                if ( score == 10 +(wave - 1) * 5){
+                    wave += 1;
+                    score = 0;
+                    time = 60;
+                    waveIncoming = true;
+                    flicker = 0;
+                    
+                    
+                }
+                
+                //Game Over Message
+                if (time <= 0){
+                    freeze = true;
+                    
+                   document.getElementById("gameOver").style.display="block";
+                    waveNum = wave -1; 
+                    if (waveNum != 1) document.getElementById("gameOverMessage").innerHTML = "You completed " + waveNum + " waves. ";
+                    else document.getElementById("gameOverMessage").innerHTML = "You completed 1 wave.";
+                    console.log('called');
+                    
+                }
+                
+                //Pause game
+                if (pause== true){
+                    document.getElementById("pause").style.display = "block"; 
+                    document.getElementById('bgMusic').pause();
+                    document.getElementById('alertSFX').pause();
+                }
+                else {
+                    document.getElementById("pause").style.display = "none"; 
+                    if (play) document.getElementById('bgMusic').play();
+                    }
+                
+                
+                //keep displaying scene
+                if (play == true){
+                    document.getElementById("menuBack").style.display="none";
+                    renderer.render(scene, camera);   
+                }
+                else{    
+				renderer.render(scene, menuCamera);
+                 time=60;
+                    
+                }
+			}
+            
+            
+                    
+            
+/*******************************************************************************************
+                                        RENDER END
+********************************************************************************************/
+            
+
+            
+            
+            
+            
+/////////////////////////   KEY PRESSES    ////////////////////////////////////////////////////////              
+        
+            
+            window.addEventListener('keydown', function(e){
+                
+                switch(e.keyCode){
+                    case 37: //left
+                        direction = "left";
+                        break;
+                    case 38: //fwd
+                        //jump();
+                        forward = "up";
+                        break;
+                    case 39: //right
+                        direction = "right";
+                        break;
+                    case 40: //right
+                        forward = "down";
+                        break;
+                    case 27:
+                        if (!pause &&  document.getElementById("menuBack").style.display == "none")pause=true;
+                        else pause = false;
+                        break;
+                        
+                };
+                
+            }, false);
+            window.addEventListener('keyup', function(e){
+                
+                switch(e.keyCode){
+                    case 37: //left
+                        direction = "";
+                        break;
+                    case 38: //fwd
+                        forward= "";
+                        
+                        break;
+                    case 39: //right
+                        direction = "";
+                        break;
+                           case 40: //back
+                        forward = "";
+                        break;
+                };
+             
+            }, false);	
+   
+           
+            //checks if object intersects with camera
+                function checkIntersects(x,y,z,radius){
+                    var x1 = x -radius;
+                    var y1 = y - radius;
+                    var z1 = z - radius;
+                    var x2 = x + radius;
+                    var y2 = y + radius;
+                    var z2 = z + radius;
+                    var camX = camera.position.x;
+                    var camY = camera.position.y;
+                    var camZ = camera.position.z;
+                    
+                    if (camX > x1 && camX < x2 && camY > y1 && camY < y2 && camZ > z1 && camZ < z2){
+                        return true;
+                        
+                    }
+                    else{
+                        return false;
+                        
+                    }
+                    
+                    
+                }
+                
+             //start game at first wave
+               function playGame(){   
+                      cockpit.traverse( function( node ) {  
+                        if ( node instanceof THREE.Mesh ) { 
+                            node.visible=true;
+                          
+                        } 
+                    });
+                   //play background music
+                   document.getElementById('bgMusic').play();
+                    //reset variables
+                    play = true;
+                    wave = 1;
+                    score = 0;
+                    waveIncoming = true;
+                    flicker = 0;
+
+                   
+               }
+            
+              //restarts game from first wave
+            function restartGame(){
+                
+                location.href= document.URL += '?play=true';
+                 location.reload(false);
+            }
+            
+            //restarts game at main menu
+          function restartAll(){
+              //reloads page from cache
+              var url =document.URL.split('?'); 
+              console.log(url[0]);
+             location.href=url[0];
+              console.log(window.location);
+            location.reload(false);
+
+           }    
+           
+           //positional volume for capsule crashes 
+            function volume(v1, v2)
+                {
+                    var dx = v1.x - v2.x;
+                    var dy = v1.y - v2.y;
+                    var dz = v1.z - v2.z;
+
+                    var distance = Math.sqrt(dx*dx+dy*dy+dz*dz);
+                    
+                    if (distance < 100) return 1;
+                    else if (distance < 300) return 0.8;
+                    else if (distance < 500) return 0.5;
+                    else if (distance < 700) return 0.2;
+                    else return 0.1;
+                }
+
+           //show instructions 
+            function instructions(){
+                document.getElementById("instructions").style.display="block";
+                document.getElementById("mainMenu").style.display="none";
+                document.getElementById("credits").style.display="none";
+            }
+            //show credits
+            function credits(){
+                document.getElementById("instructions").style.display="none";
+                document.getElementById("mainMenu").style.display="none";
+                document.getElementById("credits").style.display="block";
+            }
+            //go back to menu
+            function back(){
+                document.getElementById("instructions").style.display="none";
+                document.getElementById("mainMenu").style.display="block";
+                document.getElementById("credits").style.display="none";
+            }
+            
+            
+            
+            
+            
+/////////////////////////////////   WAVE SETUP  ////////////////////////////////////////////////////////////////  
+            
+            
+        //sets up capsules, stops Garbage Incoming message, starts timer
+        function startWave(waveNum){
+            waveIncoming=false;
+                var capsuleCount = 10 +(waveNum - 1) * 5
+               // var asteroidCount = (waveNum) * 2 ;
+               
+                
+                if (asteroidCount > 20) asteroidCount = 20; 
+         
+                //reset timer
+                startTimer = true;
+                time=60;
+                
+                //set up capsules
+                  for (var i = 0; i < capsuleCount;i++){
+                      if (!waveIncoming){
+                    capsules.push(cap.clone());
+                    scene.add( capsules[i] );
+                    capsules[i].position.set( Math.floor((Math.random() * 1000) - 500), Math.random() * 2000 + 500, Math.floor((Math.random() * 1000) - 500));
+                    capsules[i].rotation.set(0,(Math.random() * Math.PI*2),0);
+
+                     capsules[i].add(particleSystem.clone());
+                    
+                    capsules[i].traverse( function( node ) { 
+                        if ( node instanceof THREE.Mesh ) { 
+                            node.material.emissive = new THREE.Color( 0x080808);
+                        } 
+                    });
+                    }
+                
+                }
+            
+                //set up asteroids
+                asteroids = [];
+                    for (i=0; i < 20; i ++){    
+                        asteroids.push(asteroid.clone());
+                        scene.add( asteroids[i] );
+                        asteroids[i].add(warningLights[i]);
+                    }   
+            
+            //increment number of asteroids
+                if (asteroidCount <=18){ asteroidCount +=2;}
+            
+            
+            //drop number of asteroids for round
+                for (var i = 0; i < asteroidCount;i++){
+                    if (!waveIncoming){
+                        //set asteroids at different heights so they'll drop at different times during the round. Upper limit is 36000
+                       asteroids[i].position.set( Math.floor((Math.random() * 1000) - 500), Math.floor(Math.random() * 31000 + 5000), Math.floor((Math.random() * 1000) - 500));
+                        warningLights[i].target.position.set(asteroids[i].position.x,-100, asteroids[i].position.z);
+                        warningLights[i].intensity=5;
+
+                    }
+                }
+           
+            
+        }
+            
+        //preloader
+        function preloader(){
+                loaded++;
+                if (loaded == itemsToLoad){
+                    var cover = document.getElementById("preloader");
+                    cover.style.visibility='hidden';
+                    //render the scene now because everything is loaded and visisble
+                    render();
+                }    
+            }
+
+
+            
+        
+        document.addEventListener("DOMContentLoaded", function () {
+                //call the init function to set up the scene and start loading models
+                 init();
+        }, false);
+
+            
+           
+           animate();
+		</script>
+	</body>
+</html>
